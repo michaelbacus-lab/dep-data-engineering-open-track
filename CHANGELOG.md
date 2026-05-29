@@ -4,6 +4,11 @@ All notable curriculum-documentation changes in this repo should be recorded her
 
 ## Unreleased
 
+### Added
+
+- Added [docs/AUTOMATED_MILESTONE_CHECKING_PLAN.md](docs/AUTOMATED_MILESTONE_CHECKING_PLAN.md) with the milestone automation proposal for large-cohort moderator workflows.
+- Added [docs/github-issue-automated-checking.md](docs/github-issue-automated-checking.md) as a short GitHub issue draft for the automation proposal.
+
 ## [0.0.1] - Learner Support / Reference templates
 
 ### Added
