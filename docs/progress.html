@@ -214,6 +214,34 @@
 
     .refresh-btn:hover { opacity: 0.9; }
 
+    .toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #F1F5F9;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.25rem;
+    }
+
+    .toggle-btn {
+      border: none;
+      border-radius: 4px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: var(--gray);
+      transition: all 0.15s;
+    }
+
+    .toggle-btn.active {
+      background: white;
+      color: var(--navy);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
     #last-updated { font-size: 0.8rem; color: #94A3B8; }
 
     .loading { text-align: center; padding: 3rem; color: var(--gray); font-size: 0.875rem; }
@@ -229,6 +257,10 @@
 <header>
   <h1>DEP — Submission Tracker</h1>
   <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="toggle-wrap">
+      <button class="toggle-btn active" id="btn-enrolled" onclick="setView('enrolled')">Enrolled Only</button>
+      <button class="toggle-btn"        id="btn-all"      onclick="setView('all')">All Submissions</button>
+    </div>
     <span id="last-updated"></span>
     <button class="refresh-btn" onclick="load()">Refresh</button>
   </div>
@@ -286,7 +318,10 @@ const OWNER      = 'dataengineeringpilipinas';
 const REPO       = 'dep-data-engineering-open-track';
 const MILESTONES = ['M0','M1','M2','M3','M4','M5','M6'];
 
-let allIssues = [];
+let allIssues    = [];
+let enrolledSet  = null;
+let viewMode     = 'enrolled';
+
 const sortState = {
   pending:     { col: 'days', dir: 'desc' },
   improvement: { col: 'days', dir: 'desc' },
@@ -345,11 +380,25 @@ function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+function setView(mode) {
+  viewMode = mode;
+  document.getElementById('btn-enrolled').classList.toggle('active', mode === 'enrolled');
+  document.getElementById('btn-all').classList.toggle('active', mode === 'all');
+  renderAll();
+}
+
 function applyFilters(issues) {
+  let filtered = issues;
+
+  if (viewMode === 'enrolled' && enrolledSet) {
+    filtered = filtered.filter(i => enrolledSet.has(i.user.login.toLowerCase()));
+  }
+
   const q  = (document.getElementById('search')?.value || '').toLowerCase().trim();
   const fm = document.getElementById('filter-milestone')?.value || '';
   const fs = document.getElementById('filter-status')?.value || '';
-  return issues.filter(i => {
+
+  return filtered.filter(i => {
     if (q  && !`${i._builder} ${i._cohort} ${i._milestone}`.toLowerCase().includes(q)) return false;
     if (fm && i._milestone !== fm) return false;
     if (fs && i._status    !== fs) return false;
@@ -422,6 +471,24 @@ function renderAll() {
   document.getElementById('queue-pending').innerHTML     = buildTable(pending,     'pending');
   document.getElementById('queue-improvement').innerHTML = buildTable(improvement, 'improvement');
   document.getElementById('queue-all').innerHTML         = buildTable(allIssues,   'all');
+
+  const visible = applyFilters(allIssues);
+  document.getElementById('s-total').textContent       = visible.length;
+  document.getElementById('s-pending').textContent     = visible.filter(i => i._status === 'pending-review').length;
+  document.getElementById('s-improvement').textContent = visible.filter(i => i._status === 'needs-improvement').length;
+  document.getElementById('s-passed').textContent      = visible.filter(i => i._status === 'passed').length;
+
+  document.getElementById('milestone-grid').innerHTML = MILESTONES.map(m => {
+    const mAll    = visible.filter(i => i._milestone === m);
+    const mPassed = mAll.filter(i => i._status === 'passed').length;
+    return `<div class="milestone-col">
+      <div class="m-label">${m}</div>
+      <div class="m-bar">
+        <div class="m-passed">${mPassed}</div>
+        <div class="m-total">${mAll.length} submitted</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 async function fetchEnrolled() {
@@ -435,18 +502,12 @@ async function fetchEnrolled() {
 }
 
 async function fetchAll() {
-  const enrolled = await fetchEnrolled();
-
   let issues = [], page = 1;
   while (true) {
     const res   = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/issues?labels=milestone-submission&state=open&per_page=100&page=${page}`);
     const batch = await res.json();
     if (!Array.isArray(batch) || !batch.length) break;
-    let filtered = batch.filter(i => !i.pull_request);
-    if (enrolled) {
-      filtered = filtered.filter(i => enrolled.has(i.user.login.toLowerCase()));
-    }
-    issues = issues.concat(filtered);
+    issues = issues.concat(batch.filter(i => !i.pull_request));
     if (batch.length < 100) break;
     page++;
   }
@@ -456,29 +517,10 @@ async function fetchAll() {
 async function load() {
   document.getElementById('last-updated').textContent = 'Loading…';
 
-  const raw  = await fetchAll();
-  allIssues  = raw.map(enrich);
-
-  const passed      = allIssues.filter(i => i._status === 'passed');
-  const pending     = allIssues.filter(i => i._status === 'pending-review');
-  const improvement = allIssues.filter(i => i._status === 'needs-improvement');
-
-  document.getElementById('s-total').textContent       = allIssues.length;
-  document.getElementById('s-pending').textContent     = pending.length;
-  document.getElementById('s-improvement').textContent = improvement.length;
-  document.getElementById('s-passed').textContent      = passed.length;
-
-  document.getElementById('milestone-grid').innerHTML = MILESTONES.map(m => {
-    const mAll    = allIssues.filter(i => i._milestone === m);
-    const mPassed = mAll.filter(i => i._status === 'passed').length;
-    return `<div class="milestone-col">
-      <div class="m-label">${m}</div>
-      <div class="m-bar">
-        <div class="m-passed">${mPassed}</div>
-        <div class="m-total">${mAll.length} submitted</div>
-      </div>
-    </div>`;
-  }).join('');
+  [enrolledSet, allIssues] = await Promise.all([
+    fetchEnrolled(),
+    fetchAll().then(raw => raw.map(enrich)),
+  ]);
 
   renderAll();
 
