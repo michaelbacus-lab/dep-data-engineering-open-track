@@ -176,7 +176,7 @@ jobs:
 
             if (cloneOk !== 'true') {
               body += `> **Error:** ${cloneErr || 'Unknown clone failure.'}\n\n`;
-              body += `Please verify your repo URL and commit hash and resubmit by posting a comment with the corrected commit hash.\n`;
+              body += `Please verify your repo URL and commit hash, then close this issue and open a new ${milestone} submission with the correct details.\n`;
             } else {
               let results;
               try {
