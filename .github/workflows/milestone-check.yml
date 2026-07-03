@@ -176,7 +176,7 @@ jobs:
 
             if (cloneOk !== 'true') {
               body += `> **Error:** ${cloneErr || 'Unknown clone failure.'}\n\n`;
-              body += `Please verify your repo URL and commit hash, then close this issue and open a new ${milestone} submission with the correct details.\n`;
+              body += `Please verify your repo URL and commit hash, then open a new ${milestone} submission with the correct details. This issue will now be closed automatically.\n`;
             } else {
               let results;
               try {
@@ -227,6 +227,18 @@ jobs:
                 name: 'auto-check-pending'
               });
             } catch (_) {}
+
+            // Auto-close on clone failure — data is bad, fix and resubmit fresh
+            if (cloneOk !== 'true') {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.issue.number,
+                state: 'closed',
+                state_reason: 'not_planned'
+              });
+              return;
+            }
 
             // Notify Discord if all checks passed
             const allPassed = cloneOk === 'true' && (() => {
