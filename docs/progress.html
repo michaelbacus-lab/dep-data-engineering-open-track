@@ -276,8 +276,9 @@
   <h1>DEP — Submission Tracker</h1>
   <div class="header-controls">
     <div class="toggle-wrap">
-      <button class="toggle-btn active" id="btn-enrolled" onclick="setView('enrolled')">Cohort</button>
-      <button class="toggle-btn"        id="btn-all"      onclick="setView('all')">All Submissions</button>
+      <button class="toggle-btn active" id="btn-enrolled"     onclick="setView('enrolled')">Cohort: 2026-A</button>
+      <button class="toggle-btn"        id="btn-non-enrolled" onclick="setView('non-enrolled')">Non-Enrolled</button>
+      <button class="toggle-btn"        id="btn-all"          onclick="setView('all')">All</button>
     </div>
     <span id="last-updated"></span>
     <button class="refresh-btn" onclick="load()">Refresh</button>
@@ -401,6 +402,7 @@ function formatDate(iso) {
 function setView(mode) {
   viewMode = mode;
   document.getElementById('btn-enrolled').classList.toggle('active', mode === 'enrolled');
+  document.getElementById('btn-non-enrolled').classList.toggle('active', mode === 'non-enrolled');
   document.getElementById('btn-all').classList.toggle('active', mode === 'all');
   renderAll();
 }
@@ -410,6 +412,8 @@ function applyFilters(issues) {
 
   if (viewMode === 'enrolled' && enrolledSet) {
     filtered = filtered.filter(i => enrolledSet.has(i.user.login.toLowerCase()));
+  } else if (viewMode === 'non-enrolled' && enrolledSet) {
+    filtered = filtered.filter(i => !enrolledSet.has(i.user.login.toLowerCase()));
   }
 
   const q  = (document.getElementById('search')?.value || '').toLowerCase().trim();
