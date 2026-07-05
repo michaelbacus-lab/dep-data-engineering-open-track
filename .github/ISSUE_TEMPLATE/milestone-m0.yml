@@ -17,11 +17,12 @@ body:
     validations:
       required: true
 
-  - type: input
+  - type: dropdown
     id: cohort
     attributes:
       label: Cohort
-      placeholder: "e.g. 2026-A"
+      options:
+        - "2026-A"
     validations:
       required: true
 
