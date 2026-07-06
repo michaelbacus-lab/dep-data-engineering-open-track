@@ -63,6 +63,15 @@ jobs:
             const prevMilestone = MILESTONES[idx - 1];
             core.setOutput('prev_milestone', prevMilestone);
 
+            // Normalise repo URL to base owner/repo (handles blob/tree/file URLs)
+            const urlMatch = repoUrl.match(/(https?:\/\/github\.com\/[\w.-]+\/[\w.-]+?)(?:\.git)?(?:\/|$)/);
+            const baseUrl = urlMatch ? urlMatch[1] : null;
+
+            if (!baseUrl) {
+              core.setOutput('gate_ok', 'false');
+              return;
+            }
+
             // Find all passed issues for the previous milestone
             const issues = await github.paginate(github.rest.issues.listForRepo, {
               owner: context.repo.owner,
@@ -71,7 +80,7 @@ jobs:
               state: 'all'
             });
 
-            const found = issues.some(issue => issue.body && issue.body.includes(repoUrl));
+            const found = issues.some(issue => issue.body && issue.body.includes(baseUrl));
             core.setOutput('gate_ok', found ? 'true' : 'false');
 
       - name: Block if prerequisite not met
@@ -254,6 +263,18 @@ jobs:
               const builderName = (context.payload.issue.body || '').match(/###\s+Builder Name\s*\n+([^\n#]+)/i)?.[1]?.trim() || context.payload.issue.user.login;
               const cohort      = (context.payload.issue.body || '').match(/###\s+Cohort\s*\n+([^\n#]+)/i)?.[1]?.trim() || '—';
               const repoUrl     = '${{ steps.parse.outputs.repo_url }}';
+
+              // Auto-apply passed label for M0 (purely structural checks — no subjective review needed)
+              if (milestone === 'M0') {
+                try {
+                  await github.rest.issues.addLabels({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: context.payload.issue.number,
+                    labels: ['passed']
+                  });
+                } catch (_) {}
+              }
 
               // Only notify Discord for enrolled participants
               const enrolledRes = await fetch(`https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/main/.github/enrolled-participants.json`);
