@@ -47,7 +47,11 @@ jobs:
 
             // Extract repo URL from original issue body
             const repoMatch = issueBody.match(/###\s+GitHub Repo URL\s*\n+([^\n#]+)/i);
-            const repoUrl = repoMatch ? repoMatch[1].trim() : '';
+            const rawUrl = repoMatch ? repoMatch[1].trim() : '';
+
+            // Normalise to base repo URL (handles blob/tree/file URLs)
+            const urlMatch = rawUrl.match(/(https?:\/\/github\.com\/[\w.-]+\/[\w.-]+?)(?:\.git)?(?:\/|$)/);
+            const repoUrl = urlMatch ? urlMatch[1] : rawUrl;
             core.setOutput('repo_url', repoUrl);
 
       - name: Skip if no commit hash in comment
