@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8"
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
             name="description"
@@ -39,6 +39,7 @@
                     <a href="#process">Process</a>
                     <a href="#outputs">Outputs</a>
                     <a href="#ai">AI</a>
+                    <a href="#builders">Builders</a>
                     <a href="#team">Team</a>
                     <a href="#faq">FAQ</a>
                     <a
@@ -412,6 +413,190 @@
                 <a class="text-link" href="AI_GUIDE.md"
                     >Read the full AI guide</a
                 >
+            </section>
+
+            <section
+                class="content-band builders-band"
+                id="builders"
+                aria-labelledby="builders-title"
+            >
+                <div class="section-heading">
+                    <p class="section-label">Builder cohort</p>
+                    <h2 class="section-h2" id="builders-title">
+                        Public progress, <em>responsibly shared.</em>
+                    </h2>
+                    <p class="section-sub">
+                        DEP tracks the cohort like a data program: builders,
+                        milestones, phases, and support signals are reviewed
+                        regularly. This public view only shows sanitized fields
+                        suitable for the website.
+                    </p>
+                </div>
+
+                <div class="builder-dashboard" data-builder-dashboard>
+                    <article
+                        class="milestone-timeline-panel reveal"
+                        aria-labelledby="milestone-timeline-title"
+                    >
+                        <div class="milestone-timeline-header">
+                            <div>
+                                <p class="builder-directory-label">
+                                    Milestone timeline
+                                </p>
+                                <h3 id="milestone-timeline-title">
+                                    Cohort deadlines and current time
+                                </h3>
+                            </div>
+                            <div
+                                class="timeline-clock"
+                                aria-label="Current Philippine time"
+                            >
+                                <span data-timeline-date>Loading date...</span>
+                                <strong data-timeline-time>--:--:--.---</strong>
+                                <small>Asia/Manila</small>
+                            </div>
+                        </div>
+
+                        <div
+                            class="timeline-rail-wrap"
+                            data-timeline
+                            aria-live="polite"
+                        >
+                            <p class="builder-empty">
+                                Loading milestone deadlines...
+                            </p>
+                        </div>
+                    </article>
+
+                    <div
+                        class="builder-dashboard-note"
+                        data-builder-meta
+                        aria-live="polite"
+                    >
+                        Loading the latest sanitized builder snapshot...
+                    </div>
+
+                    <div class="builder-stat-grid" data-builder-stats>
+                        <article class="builder-stat-card reveal">
+                            <span class="builder-stat-number">50</span>
+                            <span class="builder-stat-label"
+                                >Selected builders</span
+                            >
+                        </article>
+                        <article class="builder-stat-card reveal reveal-delay-1">
+                            <span class="builder-stat-number">24</span>
+                            <span class="builder-stat-label">Build weeks</span>
+                        </article>
+                        <article class="builder-stat-card reveal reveal-delay-2">
+                            <span class="builder-stat-number">7</span>
+                            <span class="builder-stat-label">Milestones</span>
+                        </article>
+                        <article class="builder-stat-card reveal">
+                            <span class="builder-stat-number">7</span>
+                            <span class="builder-stat-label">Program phases</span>
+                        </article>
+                    </div>
+
+                    <div class="builder-insight-grid">
+                        <article class="builder-insight-card reveal">
+                            <div class="builder-card-heading">
+                                <h3>Status distribution</h3>
+                                <span>Support signal</span>
+                            </div>
+                            <div
+                                class="builder-bars"
+                                data-builder-status-chart
+                                aria-label="Builder status distribution"
+                            ></div>
+                        </article>
+                        <article class="builder-insight-card reveal reveal-delay-1">
+                            <div class="builder-card-heading">
+                                <h3>Phase distribution</h3>
+                                <span>Curriculum progress</span>
+                            </div>
+                            <div
+                                class="builder-bars"
+                                data-builder-phase-chart
+                                aria-label="Builder phase distribution"
+                            ></div>
+                        </article>
+                        <article class="builder-insight-card builder-insight-card-wide reveal reveal-delay-2">
+                            <div class="builder-card-heading">
+                                <h3>Milestone funnel</h3>
+                                <span>Submitted vs passed</span>
+                            </div>
+                            <div
+                                class="milestone-funnel"
+                                data-builder-milestones
+                                aria-label="Milestone submission funnel"
+                            ></div>
+                        </article>
+                    </div>
+
+                    <div class="builder-directory reveal">
+                        <div class="builder-directory-head">
+                            <div>
+                                <p class="builder-directory-label">
+                                    Builder directory
+                                </p>
+                                <h3>Selected builders and project signals</h3>
+                            </div>
+                            <p data-builder-count>
+                                Snapshot data will appear when JavaScript loads.
+                            </p>
+                        </div>
+
+                        <div class="builder-filters" aria-label="Builder filters">
+                            <input
+                                type="search"
+                                data-builder-search
+                                placeholder="Search builders, GitHub, squad, or topic"
+                                aria-label="Search builders"
+                            />
+                            <select
+                                data-builder-status-filter
+                                aria-label="Filter builders by status"
+                            >
+                                <option value="">All statuses</option>
+                            </select>
+                            <select
+                                data-builder-phase-filter
+                                aria-label="Filter builders by phase"
+                            >
+                                <option value="">All phases</option>
+                            </select>
+                        </div>
+
+                        <div
+                            class="builder-list"
+                            data-builder-list
+                            aria-live="polite"
+                        >
+                            <article class="builder-card">
+                                <div>
+                                    <p class="builder-name">
+                                        Builder snapshot unavailable
+                                    </p>
+                                    <p class="builder-topic">
+                                        The public directory is generated from a
+                                        sanitized data file and does not expose
+                                        emails, notes, or reviewer assignments.
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="builder-list-actions">
+                            <button
+                                class="builder-expand-button"
+                                type="button"
+                                data-builder-expand
+                                hidden
+                            >
+                                Show all builders
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <section

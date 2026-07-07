@@ -39,6 +39,24 @@ This is the **program hub** — it contains the curriculum, weekly resources, an
 
 ---
 
+## Preview the Onboarding Site Locally
+
+The GitHub Pages onboarding site lives in [`docs/`](docs/). Run it through a local static server so browser `fetch()` calls can load files such as `docs/data/builders.json`.
+
+```bash
+python3 -m http.server 4173 -d docs
+```
+
+Then open:
+
+```text
+http://localhost:4173/
+```
+
+Avoid opening `docs/index.html` directly with `file://`; the builder dashboard may show its fallback state because the browser can block local JSON requests.
+
+---
+
 ## Stuck Protocol
 
 > If you have spent more than **2 hours** on one problem without progress:

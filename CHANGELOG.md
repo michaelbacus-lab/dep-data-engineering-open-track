@@ -4,6 +4,19 @@ All notable curriculum-documentation changes in this repo should be recorded her
 
 ## Unreleased
 
+### Added
+
+No unreleased changes.
+
+## [0.3.0] - 2026-07-08 - Builder Cohort Dashboard and Timeline
+
+### Added
+
+- Added a public, sanitized builder cohort section to the GitHub Pages onboarding site with aggregate stats, status and phase distributions, milestone summary, and a searchable builder directory powered by `docs/data/builders.json`.
+- Limited the builder directory preview to 10 cards by default, added an expand/collapse control, and changed empty aggregate progress metrics to subtle dash placeholders.
+- Documented the Python local static-server command for previewing the GitHub Pages onboarding site without `file://` fetch issues.
+- Added a milestone deadline timeline to the builder cohort dashboard with a current-date marker, Philippine-time deadline labels, and a live millisecond clock.
+
 ## [0.2.0] - CI Milestone Check Deadlines
 
 ### Added
