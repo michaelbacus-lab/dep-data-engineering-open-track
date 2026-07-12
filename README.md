@@ -27,3 +27,39 @@ I will explore the following sources. Note that data coverage varies per source 
 ## Possible Final Dashboard
 
 The dashboard should help the audience quickly see whether NCR PM2.5 levels declined after EVIDA took effect in 2022, and whether the growth in EV and hybrid vehicle share is large enough to explain any observed change — or whether total fleet growth is canceling out the gains from cleaner vehicles.
+
+## Data Source Notes
+
+### Air Quality
+
+**Primary:** OpenAQ API — NCR stations, Sept 2023–present
+- URL: https://api.openaq.org/v3
+- Format: JSON (REST API, requires X-API-Key header)
+- Coverage: Station-level PM2.5, NCR, Sept 2023–present (verified live)
+- Why it fits: Continuous, programmatic, station-level data covering the post-EVIDA period this project measures
+- Known limitations: Country-level filter (`countries_id=183`) returns stations outside NCR, requires additional geographic filtering; many stations have short or discontinuous coverage windows — only a subset (e.g. AirNow "Manila" station) provide continuous long-term data suitable for trend analysis
+
+**Fallback:** DENR-EMB National Air Quality Status Reports — NCR PM2.5 baseline, 2016–2021
+- URL: https://air.emb.gov.ph
+- Format: PDF
+- Coverage: NCR annual PM2.5 averages, 2016–2021
+- Why it fits: Complementary earlier-period source, not a backup-if-fails source — establishes the pre-EVIDA baseline that OpenAQ doesn't cover, forming one continuous pre/post timeline with OpenAQ
+- Known limitations: PDF extraction required; annual granularity only, not station-level; no coverage for the 2022–mid-2023 transition period after EVIDA passed (April 2022) and before OpenAQ's NCR stations stabilize — DENR official press releases (2022–2023) may partially bridge this gap
+
+### Vehicle Fleet Composition
+
+**Primary:** PSA Compendium of Philippine Environment Statistics, Table 5.8.1
+- URL: https://psa.gov.ph
+- Format: Excel/PDF table
+- Coverage: Registered vehicles by fuel type, NCR, 2014–2023
+- Why it fits: Official government fleet registration data covering nearly the full study period
+- Known limitations: Stops at 2023, doesn't extend to "present"
+
+**Fallback:** DOE / EVAP Annual EV Industry Reports
+- Format: PDF/report
+- Coverage: EV and hybrid registration counts, 2022–2024
+- Why it fits: Extends fleet composition data one year closer to present than PSA alone
+- Known limitations: Narrower scope (EV/hybrid only, not full fleet breakdown)
+
+### First Pull Path
+OpenAQ: API call via Python `requests`, authenticated with X-API-Key header, filtered by NCR station IDs. DENR-EMB and PSA: manual download of published PDF/Excel tables, parsed with `pdfplumber`/`pandas`.
