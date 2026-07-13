@@ -1,6 +1,6 @@
 name: "Milestone 0 — Project Proposal"
 description: Submit your project proposal for M0 review.
-title: "[M0] <Your Name> — <Project Title>"
+title: "[M0] <Michael Bacus> — <Can Publicly Available Data Reveal Unusual Patterns in DPWH Flood Control Projects? (2022–2025)>"
 labels: ["milestone-submission", "M0", "auto-check-pending"]
 body:
   - type: markdown
