@@ -1,133 +1,84 @@
-# DEP Data Engineering Open Track: A 6-Month Project-Driven Build Journey
+# Can Publicly Available Data Reveal Unusual Patterns in DPWH Flood Control Projects? (2022–2025)
 
-> A 6-month, self-paced, project-driven learning journey. Participants build a real, deployable data project using free and open-source tools.
+## Problem Statement
 
-**Cohort:** June – November 2026 &nbsp;|&nbsp; **Time:** ~5 hrs/week &nbsp;|&nbsp; **Cost:** Free
+I want to answer:
 
----
+**"Can publicly available DPWH flood control project data reveal unusual geographic, financial, and contractor-related patterns that may indicate areas requiring further audit or investigation between 2022 and 2025?"**
 
-## What You'll Build
+My hypothesis is that while most flood control projects are distributed according to infrastructure and disaster mitigation needs, the data may reveal patterns that warrant closer examination. These may include unusually high concentrations of projects within specific provinces, repeated awards to the same contractors, or significant differences in project costs across comparable locations. Such patterns do **not** establish corruption, fraud, or wrongdoing. Instead, they provide evidence-based indicators that can help auditors, policymakers, journalists, and citizens identify projects that deserve further review. If the analysis finds no unusual concentrations or inconsistencies, it would suggest that the observed project distribution is generally consistent with available public data. If notable anomalies are identified, the findings could support stronger transparency initiatives, more detailed public reporting, and more targeted oversight by government auditing agencies.
 
-By the end of the program, every participant will have:
+## Audience
 
-- A **public GitHub repo** with a clean, documented data project
-- An **end-to-end data pipeline** (ingest → clean → analyze → deploy)
-- An **analysis notebook** with charts, statistics, and written insights
-- A **live deployed dashboard** (GitHub Pages)
+This project is intended for the Commission on Audit (COA), the Department of Public Works and Highways (DPWH), policymakers, local government units (LGUs), journalists, researchers, civil society organizations, and citizens interested in government transparency and infrastructure accountability. It aims to provide an objective, data-driven view of how publicly funded flood control projects are distributed across the Philippines.
 
----
+## KPI or Key Metric
 
-## Program Design
+The primary metrics I want to track include:
 
-| | |
-|-|-|
-| **Duration** | 24 weeks (~5 hours/week, ~120 hours total) |
-| **Weekly Rule** | 1 primary resource + 1 optional max; every week produces a project artifact |
-| **Design Principles** | Project-first · milestone-driven · public accountability · low-overwhelm resource curation |
-| **Resource Rule** | Prefer official docs, interactive tools, or one proven course. Avoid multiple full courses in the same week. |
-| **Tool Stack** | Free tools only: GitHub, Python, SQL, HTML. Optional tools (Tableau, etc.) are learner-driven. |
+* Number of completed flood control projects per province and region
+* Total project cost by province and region
+* Average project cost
+* Number of projects awarded per contractor
+* Contractor concentration ratio
+* Geographic distribution of completed projects
+* Project density relative to province or municipality
+* Identification of statistical outliers in project allocation and cost
 
----
+## Likely Data Source
 
-## How to Use This Repo
+I will explore the following data sources:
 
-This is the **program hub** — it contains the curriculum, weekly resources, and milestone guides.
+* DPWH Flood Control Projects Dataset (Kaggle) — https://www.kaggle.com/datasets/bwandowando/dpwh-flood-control-projects
+* DPWH Project DIME Dashboard — https://www.dime.gov.ph/dashboard
+* DPWH Official Website — https://www.dpwh.gov.ph
+* Commission on Audit (COA) Annual Audit Reports — https://www.coa.gov.ph
+* Philippine Statistics Authority (PSA) — https://psa.gov.ph (for regional and population statistics if normalization is required)
 
-**Builders:** Follow the phase folders in order. Each week folder has resources, tasks, and links.
+## Possible Final Dashboard
 
-**Volunteers:** See [docs/VOLUNTEER_GUIDE.md](docs/VOLUNTEER_GUIDE.md) for your role and responsibilities.
+The dashboard should help users quickly identify how flood control projects are distributed across regions and provinces, which contractors receive the highest number of projects, how project costs compare geographically, and whether statistically unusual allocation patterns exist. Interactive maps, contractor rankings, regional summaries, and cost distribution charts will allow users to explore the data and identify projects or areas that may warrant further review by oversight agencies.
 
----
+## Data Source Notes
 
-## Preview the Onboarding Site Locally
+### Flood Control Projects
 
-The GitHub Pages onboarding site lives in [`docs/`](docs/). Run it through a local static server so browser `fetch()` calls can load files such as `docs/data/builders.json`.
+**Primary:** DPWH Flood Control Projects Dataset (Kaggle)
 
-```bash
-python3 -m http.server 4173 -d docs
-```
+* URL: https://www.kaggle.com/datasets/bwandowando/dpwh-flood-control-projects
+* Format: CSV
+* Coverage: Completed DPWH flood control projects from July 2022 to May 2025
+* Why it fits: Provides structured project-level information including project names, locations, implementing offices, contractors, coordinates, and other metadata suitable for ETL and analytics.
+* Known limitations: Covers completed projects only and relies on publicly available government records compiled into a machine-readable dataset.
 
-Then open:
+**Fallback:** DPWH Project DIME Dashboard
 
-```text
-http://localhost:4173/
-```
+* URL: https://www.dime.gov.ph/dashboard
+* Format: Web dashboard / downloadable reports
+* Coverage: Government infrastructure project monitoring and implementation status
+* Why it fits: Can supplement project metadata and validate project information.
+* Known limitations: Coverage and available fields may differ from the Kaggle dataset and may require manual extraction.
 
-Avoid opening `docs/index.html` directly with `file://`; the builder dashboard may show its fallback state because the browser can block local JSON requests.
+### Audit and Oversight Data
 
----
+**Primary:** Commission on Audit (COA) Annual Audit Reports
 
-## Stuck Protocol
+* URL: https://www.coa.gov.ph
+* Format: PDF
+* Coverage: Audit findings and observations on government infrastructure projects
+* Why it fits: Provides additional context for interpreting observed data patterns.
+* Known limitations: Reports are document-based and require PDF extraction; audit observations may not correspond directly to every project in the dataset.
 
-> If you have spent more than **2 hours** on one problem without progress:
->
-> 1. Write down exactly what you tried
-> 2. Post in the DEP community channel with your error message and code snippet
-> 3. Tag your moderator
->
-> **Do NOT skip ahead.** Moderators flag stuck participants for Ops Lead review within 48 hours.
-> You may not advance to the next milestone while a blocker is unresolved.
+### Geographic and Demographic Data
 
----
+**Primary:** Philippine Statistics Authority (PSA)
 
-## Curriculum
+* URL: https://psa.gov.ph
+* Format: CSV, Excel, PDF
+* Coverage: Population and regional statistics
+* Why it fits: Enables normalization of project counts and supports regional comparisons.
+* Known limitations: May require joining multiple datasets and harmonizing geographic identifiers.
 
-| Phase | Weeks | Focus | Output |
-|-------|-------|-------|--------|
-| [01 — Foundations](01-foundations/) | 1–4 | Problem framing, data source discovery, GitHub + Python basics | Problem statement + first raw data pull |
-| [02 — Data Collection](02-data-collection/) | 5–6 | API fundamentals, alternate ingestion paths (scraping / manual) | Ingestion script + raw data in `/data/raw` |
-| [03 — Data Processing](03-data-processing/) | 7–12 | Storage/data modeling, SQL, Pandas cleaning, data quality, pipeline structuring | Clean, schema-defined dataset + reproducible pipeline |
-| [04 — Analysis & Insights](04-analysis-and-insights/) | 13–16 | Descriptive stats, EDA, visualization, insight writing | Insights notebook with 3–5 charts |
-| [05A — Predictive Layer](05-project-packaging/) *(Path A — conditional)* | 17–20 | Regression, classification, feature engineering, ML pipeline integration | Predictive model + evaluation metrics |
-| [05B — Non-Predictive Alt Track](05-project-packaging/) *(Path B — conditional)* | 17–20 | Advanced segmentation, KPI framework, stakeholder narrative, repo integration | Advanced analysis + stakeholder brief |
-| [06 — Deployment](06-deployment/) | 21–24 | Dashboard design + build, GitHub Pages deploy, documentation polish, presentation | Live project URL + portfolio-ready repo |
+### First Pull Path
 
----
-
-## Milestones
-
-Progress is tracked through 7 milestones (M0–M6). Each one has a clear output and a submission form.
-
-| Milestone | When | Output |
-|-----------|------|--------|
-| M0 — Problem Statement | End of Week 1 | Specific question + audience + possible data source + README in learner's own words |
-| M1 — Data Source Identified / Repo Initialized | By Week 3–4 | Working repo + chosen source + README data section complete |
-| M2 — Data Ingestion Script | By Week 6 | Raw data in `/data/raw` via API, scraping, or manual timestamped save |
-| M3 — Clean Dataset | By Week 12 | Processed dataset + schema plan + cleaning notes + validation checks |
-| M4 — Initial Insights | By Week 16 | 3–5 charts + written interpretations + one cautious inference section |
-| M5 — Public Repo / Predictive Component | By Week 20–23 | Professional repo + predictive layer (Path A) OR advanced EDA + stakeholder brief (Path B) |
-| M6 — Live Deployment | By Week 24 | Live GitHub Pages URL + presentable final project |
-
-> **Gates:** M0 and M1 are hard gates. Learners must not proceed to the next phase without moderator review and approval.
-
-Full checklist: [docs/MILESTONE_CHECKLIST.md](docs/MILESTONE_CHECKLIST.md)
-
----
-
-## Getting Started (Participants)
-
-1. **Join the community** — [Join the DEP Discord](https://discord.com/invite/buDgydz7J9)
-2. **Set up your project repo** — copy the [DEP Starter Kit](cohorts/starter-kit/) scaffold into your own GitHub repo
-3. **Start Phase 1** — go to [01-foundations/](01-foundations/) and begin Week 1
-
----
-
-## Tech Stack
-
-![DEP Tech Stack](docs/stack-diagram.svg)
-
----
-
-## Cohorts
-
-- [2026 Cohort](cohorts/2026/) — June–November 2026 *(current)*
-
----
-
-## For Volunteers
-
-See [docs/VOLUNTEER_GUIDE.md](docs/VOLUNTEER_GUIDE.md) for role descriptions, responsibilities, and the operating rhythm.
-
----
-
-*Built by Data Engineering Pilipinas. Free and open. Always.*
+Download the Kaggle DPWH Flood Control Projects dataset as the primary source and ingest it into the Bronze layer. Clean and standardize project locations, contractor names, and administrative boundaries in the Silver layer. Enrich the data by joining regional information from PSA and validating selected projects against the DPWH Project DIME Dashboard. Finally, build Gold-layer analytical tables that summarize project distribution, contractor participation, regional investment patterns, and statistical outliers for visualization in an interactive dashboard.
