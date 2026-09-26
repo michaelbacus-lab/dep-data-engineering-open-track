@@ -82,3 +82,40 @@ The dashboard should help users quickly identify how flood control projects are 
 ### First Pull Path
 
 Download the Kaggle DPWH Flood Control Projects dataset as the primary source and ingest it into the Bronze layer. Clean and standardize project locations, contractor names, and administrative boundaries in the Silver layer. Enrich the data by joining regional information from PSA and validating selected projects against the DPWH Project DIME Dashboard. Finally, build Gold-layer analytical tables that summarize project distribution, contractor participation, regional investment patterns, and statistical outliers for visualization in an interactive dashboard.
+
+### Limitations
+- Known limitations: Covers completed projects only and relies on publicly available
+  government records compiled into a machine-readable dataset. This dataset reflects
+  DPWH's own self-reported project submissions, which are currently under Senate Blue
+  Ribbon Committee and internal DPWH investigation for coordinate inaccuracies and
+  possible non-existent ("ghost") project entries — as of DPWH's own validation efforts
+  in late 2025, 15 projects out of 1,600 validated sites were found non-existent, with
+  roughly 160 more locations still pending verification, and Senate committee chair
+  Panfilo Lacson has alleged that incorrect grid coordinates were submitted for
+  thousands of projects nationwide. Findings from this analysis should be treated as
+  indicators warranting further verification, not as confirmed conclusions.
+
+# Data
+
+## Raw Data
+
+**File:** `data/raw/dpwh_flood_control_projects.csv`
+
+**Source:** [DPWH Flood Control Projects Dataset](https://www.kaggle.com/datasets/bwandowando/dpwh-flood-control-projects)
+(Kaggle, compiled by bwandowando from publicly available DPWH project records)
+
+**Ingestion method:** Manual download (one of the three DEP-approved ingestion paths:
+API / web scraping / manual download)
+
+**Pulled on:** <FILL IN — the actual date you downloaded this file>
+
+**Row count:** 9,855
+
+**Known limitations:** See root README's Data Source Notes section — this dataset
+reflects DPWH's own self-reported submissions, which are currently under formal
+Senate and internal DPWH investigation for coordinate accuracy and possible
+non-existent project entries.
+
+**Repeatability:** Re-downloadable at any time from the Kaggle URL above. Note that
+Kaggle dataset versions can update as the maintainer refreshes the underlying
+compiled data, so a re-pull may not be byte-identical to this snapshot.
