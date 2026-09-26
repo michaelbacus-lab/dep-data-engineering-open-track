@@ -59,6 +59,13 @@ The dashboard should help users quickly identify how flood control projects are 
 * Why it fits: Can supplement project metadata and validate project information.
 * Known limitations: Coverage and available fields may differ from the Kaggle dataset and may require manual extraction.
 
+## Requirements
+**Primary:** Python Libraries
+kaggle
+Path
+os
+
+
 ### Audit and Oversight Data
 
 **Primary:** Commission on Audit (COA) Annual Audit Reports
