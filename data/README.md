@@ -8,3 +8,5 @@
 | `processed/` | `m5_*.csv` (segments, KPIs, province concentration, review shortlist) | `scripts/analysis/m5_segmentation_kpis.py` |
 
 Raw data is never edited. Everything in `processed/` can be rebuilt from the raw file with `python scripts/run_pipeline.py`.
+
+Column names, types and descriptions for the raw file: [`docs/data_dictionary.md`](../docs/data_dictionary.md).
