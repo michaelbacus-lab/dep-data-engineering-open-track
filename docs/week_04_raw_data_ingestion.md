@@ -17,8 +17,9 @@ Week 4 focuses on building the **Bronze Layer** ingestion pipeline (`scripts/ing
 The raw ingestion workflow retrieves source data via the Kaggle API without requiring manual file uploads or interactive browser downloads.
 
 ### Authentication & Environment Setup
-Authentication is managed using the `KAGGLE_KEY` environment variable or local Kaggle API credentials (`~/.kaggle/kaggle.json`).
+Authentication is managed using the `KAGGLE_USERNAME` and `KAGGLE_KEY` environment variables or local Kaggle API credentials (`~/.kaggle/kaggle.json`).
 
 ```bash
 # Environment Variable Setup (Local Terminal / Colab)
-export KGAT_2d48dd7d4a7059a3537fadf3f54a6d7b"
+export KAGGLE_USERNAME="your_kaggle_username"
+export KAGGLE_KEY="your_kaggle_api_key"     # never commit a real key
