@@ -16,7 +16,7 @@ Week 6 completes Phase 2 (Ingestion & Data Quality) by hardening the automated i
 
 To prevent sensitive credentials and large dataset files from leaking into public Git repositories:
 
-1. **Environment Security (`.env` Integration):** Kaggle API tokens (`KGAT_347a62e398f8e71ebe56c9f14ef0dfff`) are loaded via environment variables or a local `.env` file rather than hardcoded string literals.
+1. **Environment Security (`.env` Integration):** Kaggle API credentials (`KAGGLE_USERNAME` and `KAGGLE_KEY`) are loaded via environment variables or a local `.env` file rather than hardcoded string literals.
 2. **Git Exclusion Rules (`.gitignore`):** Enforces strict exclusion of raw `.csv` data files, virtual environment directories, and configuration secrets while retaining `.gitkeep` placeholders to preserve folder hierarchy.
 
 ### `.gitignore` Baseline Configuration
