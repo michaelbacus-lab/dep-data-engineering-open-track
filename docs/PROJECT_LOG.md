@@ -259,11 +259,6 @@ This project follows a 3-tier **Medallion Architecture**:
 
 ...
 
-### Related Dimensions
-
-* `dim_contractor`: Joins on `contractor_id` to aggregate contractor market concentration ratios (top-N share) and total contract volume.
-* `dim_location`: Joins on `location_id` to pull PSA provincial population and land area for normalizing spend per capita.
-* `dim_implementing_office`: Joins on `office_id` to categorize projects by District Engineering Office (DEO) versus Regional Office (RO).
 
 ## 💻 Quickstart & Ingestion
 
