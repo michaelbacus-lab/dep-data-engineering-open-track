@@ -21,4 +21,4 @@ Authentication is managed using the `KAGGLE_KEY` environment variable or local K
 
 ```bash
 # Environment Variable Setup (Local Terminal / Colab)
-export KAGGLE_KEY="KGAT_347a62e398f8e71ebe56c9f14ef0dfff"
+export KGAT_2d48dd7d4a7059a3537fadf3f54a6d7b"
