@@ -257,50 +257,6 @@ This project follows a 3-tier **Medallion Architecture**:
 2. **Silver Layer (`data/processed/`):** Standardized, deduplicated, and canonicalized Parquet dataset (cleaning contractor names, validating GPS coordinates, parsing dates, and mapping PSGC boundaries).
 3. **Gold Layer (Analytics):** Analytical Star Schema aggregating contractor concentration, provincial spend per capita, and cost anomaly z-scores.
 
-### Project Dependencies
-- **Primary Python Modules:** `pandas`, `kaggle`, `pathlib`, `os`, `geopandas`
-
-### Dimensional Data Model (Gold Layer Schema)
-
-```mermaid
-erDiagram
-    dim_location ||--o{ fact_flood_control_projects : "1:N"
-    dim_contractor ||--o{ fact_flood_control_projects : "1:N"
-    dim_implementing_office ||--o{ fact_flood_control_projects : "1:N"
-
-    dim_location {
-        string location_id PK "PSGC Code"
-        string province
-        string region
-        int population
-        float land_area_sqkm
-    }
-
-    dim_contractor {
-        string contractor_id PK "Canonical Hash Key"
-        string name_raw "Original DPWH string"
-        string name_clean "Deduplicated Name"
-        boolean is_consortium
-    }
-
-    dim_implementing_office {
-        string office_id PK "Office Hash Key"
-        string office_name "e.g., Pampanga 1st DEO"
-        string office_type "DEO or RO"
-    }
-
-    fact_flood_control_projects {
-        string project_id PK "Surrogate Hash Key"
-        string contractor_id FK
-        string location_id FK
-        string office_id FK
-        date completion_date
-        float contract_cost_php
-        float cost_zscore_regional
-    }
-```
-
-
 ...
 
 ### Related Dimensions
