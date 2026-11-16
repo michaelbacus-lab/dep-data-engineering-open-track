@@ -5,7 +5,7 @@ Run `python scripts/run_pipeline.py` first, then open the notebooks with `jupyte
 | Notebook | Phase | What it shows |
 |---|---|---|
 | `M4_initial_insights.ipynb` | 4 (Weeks 13–16) | Descriptive statistics, Charts 1–5 with interpretations, cautious inference, answer to the problem statement |
-| `M5_segmentation_kpis_brief.ipynb` | 5, Path B (Weeks 17–20) | Segmentation on 3 dimensions, 5 KPIs with trends, review shortlist, stakeholder brief |
+| `M5_segmentation_kpis_brief.ipynb` | 5, Path B (Weeks 17–20) | Segmentation on 3 dimensions, 5 KPIs, four with quarterly trends (KPI 4 is a single province-level value), review shortlist, stakeholder brief |
 
 The M5 notebook imports its functions from `scripts/analysis/m5_segmentation_kpis.py`, so the notebook and the pipeline show the same numbers.
 
