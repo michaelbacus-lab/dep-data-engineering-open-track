@@ -14,6 +14,7 @@ Week 7 transitions the project storage design from a flat, unnormalized Bronze d
 
 ## Star Schema Architecture
 
+Note: Planned, not built.
 The relational storage model centers on a core fact table surrounded by three primary dimension tables:
 
 ```text
