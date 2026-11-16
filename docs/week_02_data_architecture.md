@@ -58,7 +58,7 @@ The pipeline utilizes lightweight, open-source, and cloud-compatible technologie
    |  GOLD LAYER (Analysis-Ready & Enriched)                                     |
    |  Operation: Regional aggregations, Z-score computation, audit risk flags    |
    |  Path: data/processed/dpwh_flood_control_analysis_ready.csv                |
-   |  Format: Analytics-Ready Table / Star Schema Relational Model               |
+   |  Format: Analysis-ready CSV                                                 |
    +-----------------------------------------------------------------------------+
                                           │
                                           ├──► SQL Analytics (scripts/run_sql_queries.py)
