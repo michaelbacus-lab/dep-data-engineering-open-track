@@ -1,4 +1,4 @@
-Week 7 — Relational Storage & Star Schema Design
+# Week 7 — Relational Storage & Star Schema Design
 
 **Project Title:** Public Data Patterns in DPWH Flood Control Projects (2022–2025)  
 **Target Audience:** Commission on Audit (COA) — Infrastructure Audit Division  
@@ -8,14 +8,15 @@ Week 7 — Relational Storage & Star Schema Design
 
 ## Executive Summary
 
-Week 7 transitions the project storage design from a flat, unnormalized Bronze dataset (`data/raw/dpwh_flood_control_projects.csv`) into a structured **Star Schema Relational Model**. Storing records in a dimensional schema (Fact and Dimension tables) inside SQLite/DuckDB eliminates field redundancy, optimizes SQL analytical query execution, and enforces relational integrity across entities (contractors, locations, implementing offices).
+This document describes a **planned, not built** relational star schema for the DPWH Flood Control dataset. The current pipeline stores its cleaned and analysis-ready outputs as CSV files; it does not create or populate the fact and dimension tables described here. The design is a future relational model for organizing project, contractor, location, and implementing-office data.
 
 ---
 
 ## Star Schema Architecture
 
-Note: Planned, not built.
-The relational storage model centers on a core fact table surrounded by three primary dimension tables:
+> **Status: Planned, not built.** The diagram below is a design proposal only. The implemented analysis-ready output is `data/processed/dpwh_flood_control_analysis_ready.csv`.
+
+The proposed relational storage model centers on a core fact table surrounded by three primary dimension tables:
 
 ```text
                   +--------------------------------+
