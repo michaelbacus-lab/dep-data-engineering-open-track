@@ -18,7 +18,7 @@ This document describes a **planned, not built** relational star schema for the 
 
 The proposed relational storage model centers on a core fact table surrounded by three primary dimension tables:
 
-```text
+```
                   +--------------------------------+
                   |         dim_location           |
                   +--------------------------------+
@@ -46,6 +46,8 @@ The proposed relational storage model centers on a core fact table surrounded by
                   |     contractor_name           |
                   |     is_joint_venture          |
                   +-------------------------------+
+
+```
 
 ## Implemented analysis-ready CSV: columns and types
 
